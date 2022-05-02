@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="EMF Generation">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <title>Log Amplifier</title>
+
+  
+  <link rel="stylesheet" href="demo1.css">
+  
+
+
+    
+  <style type="text/css">
+  body {
+    background-color: #fffDD0;
+
+}
+h1 {
+    color: #2c99ce;
+  
+} 
+
+   #wrapper {
+  width:100%;
+}
+
+
+.dropbtn {
+    background-color: #3e6389;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2c99ce;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: linen;
+    min-width: 750px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color:#fffDD0 }
+
+.show {display:block;}
+</style>
+</head>
+
+<body outline:black; data-demo-id="animation">
+
+
+<h1 style="text-align: center;"><u>Log  Amplifier</u></h1>
+<br/>
+
+
+
+<div class="dropdown" style="left:40px;">
+<button onclick="dropdown()" class="dropbtn">Instuctions</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#home"><b>1) Connect the probes as mentioned below:<br>
+                        L1-L3,L4-L7,L5-L7,L6-L9,L8-L12.
+                    </b><br/><br/>
+                    <b>2) Set the input voltage to 1V.</b><br/><br/>
+                    <b>3) See the voltage across the output terminal. Note the negative sign. </b><br/><br/>
+                    <b>4) Increase the input voltage in the step of 1V up to 20V. </b><br/><br/>
+                    <b>5) Plot the characteristics of input voltage and output voltage.</b><br/><br/>
+                    
+                    </a>
+</div>
+</div>
+<div class="jtk-demo-main" >
+            <!-- demo -->
+            <div class="jtk-demo-canvas canvas-wide animation-demo jtk-surface jtk-surface-nopan" id="canvas">
+              <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld1"><br><a  href="#" class="cmdLink detach" rel="ld1">1</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld3"></br><a href="#" class="cmdLink detach" rel="ld3">3</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld4"></br><a href="#" class="cmdLink detach" rel="ld4">4</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld5"></br><a href="#" class="cmdLink detach" rel="ld5">5</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld6"></br><a href="#" class="cmdLink detach" rel="ld6">6</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld7"></br><a href="#" class="cmdLink detach" rel="ld7">7</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld8"></br><a href="#" class="cmdLink detach" rel="ld8">8</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld9"></br><a href="#" class="cmdLink detach" rel="ld9">9</a></div>
+                <div class="littledot jtk-endpoint-anchor jtk-managed jtk-connected" id="ld12"></br><a href="#" class="cmdLink detach" rel="ld12">12</a></div>
+
+<div id="wrapper" style="position:absolute; border: 2px solid; top: 160px; ;width:1200px;height:1000px;left:20px">
+  <div style="position:absolute;left:-20px;top:500px;" >
+    <table width="0%" border="0" > 
+    <form id="myForm"></form>
+      <tbody>
+                   <tr  style="text-align: center";>
+                     <td><label><b><font color="#2c99ce" size="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select input voltage(V<sub>in</sub>) &nbsp;&nbsp;=&nbsp; </font></b></label></td>
+                     <td>
+                      <input type="range" id="range" min="1.0" max="20" step="0.5">
+                     </td>
+                     <td>             
+                      <input style=" background: #3e6389 !important;color: white; height:50px; width:100px" id = "calc" type = "button" value = " Calculate " onclick="cal()">
+                      </td>               
+                  
+    </tr>
+      </tbody>
+   </table>
+   </div>
+
+   <div style="position:absolute;left:150px; top: 600px;">
+    <table align="center" width="0%" border="1">
+      <tbody>
+      <tr>
+        <td><b><font color="#FF0000" size="4">I/P voltage(V<sub>in</sub>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></b>
+          <b><span id="demo"></span></b> <font color="#FF0000  " size="4">V</font> </td>
+    </tr>
+    <tr>
+        <td><b><font color="#FF0000" size="4">O/P voltage(V<sub>out</sub>)&nbsp;=</font></b>&nbsp;&nbsp;&nbsp;&nbsp;<Label id="result">0</Label>&nbsp;<font color="#FF0000  " size="4">mV</font> </td>
+    </tr>
+     <tr>
+                      <td align ="center"><label><input style=" background: #3e6389 !important;
+                       color: white;   height:50px; width:100px" id = "add" type = "button" value = " Add to table " onclick="Add()"></label></td>
+                      </tr>
+      </tbody>
+     </table>
+    </div>
+    
+    <div style="left: 90px; position: relative; top: 10px;">
+    
+        <img src="circuit.png" width=400px; height=450px;/>
+      
+      
+      </div>
+    
+    
+    
+    
+    
+    
+    </br></br></br></br></br></br></br></br></br></br></br></br>
+        <div id="tblwrap" style="position:absolute; border: 2px solid #2c99ce;top:450px;width:500px;height:500px;left:625px">
+                    <div style="position:absolute; font-size:16px;background-color: #2c99ce;  top:0px;left:0px; width:500px; height:50px;font-weight: bold;"><p style=" color:white"> 
+    
+                        EXPERIMENTAL TABLE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input style=" background: #3e6389 !important;color: white;    height:30px; width:100px" id = "pr" type = "button" value = " Print  " onclick="print()"></p>
+                    </div>
+                   
+                    <div id="table" style="background-color: #ECEFF4;;; position:absolute; top:50px;width:500px;height:450px;left:0px; overflow-y: auto;">
+    
+                        <table id="mytable" width="500" border="1" >
+                          <tbody>
+    
+                            <tr>
+                                <th>SN.</th>
+                                <th>I/P voltage<br>(V<sub>in</sub>)</th>
+                                <th>O/P volatge<br>(V<sub>out</sub>)</th>
+                               
+                                
+    
+    
+                                <!-- <th>load(Watt)</th>-->
+                            </tr>
+                          </tbody>
+                            
+                        </table>
+                        <!-- <table id="mytable" border="1" >
+                        </table> -->
+                    </div>
+        </div>
+    
+    
+    
+    
+    
+                
+      
+     <br>
+    
+    <br>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  
+    
+     
+        
+      
+
+
+      
+  
+ 
+
+  </div>
+<div style="position:absolute;left:268px;top:600px;">
+            <button id="check-button" >Check</button>
+            <input id="reset" type="reset" onclick="window.location.href = 'index.html';" value="Reset">
+        </div>
+
+    <script>
+    
+           document.getElementById('range').disabled = true;
+           document.getElementById('calc').disabled = true;
+           document.getElementById('add').disabled = true;
+           document.getElementById('pr').disabled = true;
+	  
+	  
+	  </script>
+
+  <script>
+    var slider = document.getElementById("range");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>
+
+      
+<script src="jsplumb.js"></script>
+ <script src="antilog.js"></script>
+
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable endpointDrag jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 161px; top: 171px; visibility: visible;" dragid="jsPlumb_2_27" elid="ld1">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 133px; top: 289px;">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable endpointDrag jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 244px; top: 288px; visibility: visible;" dragid="jsPlumb_2_31" elid="ld4">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable endpointDrag jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 306px; top: 289px; visibility: visible;" dragid="jsPlumb_2_35" elid="ld5">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable endpointDrag jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 463px; top: 289px; visibility: visible;" dragid="jsPlumb_2_39" elid="ld6">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 162px; top: 375px;">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable endpointDrag jtk-endpoint-connected" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 163px; top: 438px; visibility: visible;" dragid="jsPlumb_2_47" elid="ld8">
+
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable jtk-endpoint-connected endpointDrag" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 425px; top: 403px; visibility: visible;" dragid="jsPlumb_2_43" elid="ld9">
+
+ 
+ <img class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable jtk-endpoint-connected endpointDrag" src="littledot.png" height="30" width="30" style="position: absolute; margin: 0px; padding: 0px; outline: 0px; height: 30px; width: 30px; left: 442px; top: 574px; visibility: visible;" dragid="jsPlumb_2_51" elid="ld12">
+
+ 
+            </div>
+</div>
+</body>
+
+</html>
